@@ -99,3 +99,13 @@ all.config
 
 # fetched Android config fragments
 android/configs/android-*.cfg
+
+build/
+
+*.rej
+
+out/
+
+toolchains/
+
+kali-nethunter-kernel/
