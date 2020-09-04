@@ -21,13 +21,12 @@ echo "building kernel..."
 make O="$BUILD" -j64
 
 echo "building modules..."
-make O="$BUILD" INSTALL_MOD_PATH="." INSTALL_MOD_STRIP=1 modules_install
-rm $BUILD/lib/modules/*/build
-rm $BUILD/lib/modules/*/source
+make O="$BUILD" -j8 INSTALL_MOD_PATH=MODULES_OUT modules_install
+
 
 mkdir -p $OUT/modules
 mv "$BUILD/arch/arm64/boot/Image.gz-dtb" "$OUT/Image.gz-dtb"
-find "$BUILD/lib/modules/" -name *.ko | xargs -n 1 -I '{}' mv {} "$OUT/modules"
+mv "$BUILD/MODULES_OUT" "$OUT/modules"
 
 echo "Image.gz-dtb & modules can be found in $BUILD"
 
